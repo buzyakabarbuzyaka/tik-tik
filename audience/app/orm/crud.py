@@ -1,14 +1,22 @@
 from sqlalchemy.orm import Session
-
 from orm import models, schemas
 
 
-# def get_user(db: Session, channel_id: int):
-#     return db.query(models.Channels).filter(models.Channels.id == channel_id).first()
-#
-#
-# def get_channel_by_name(db: Session, channel_name: str):
-#     return db.query(models.Channels).filter(models.Channels.channel_name == channel_name).first()
+def get_channels(db: Session):
+    return db.query(models.Channels).all()
+
+
+def get_channel_by_name(db: Session, channel_name: str):
+    return db.query(models.Channels).filter(models.Channels.channel_name == channel_name).first()
+
+
+def add_video(db: Session, channel_name: str, new_boobs: int):
+    db_channel = get_channel_by_name(db=db, channel_name=channel_name)
+    db_channel.boobs += new_boobs
+    db.add(db_channel)
+    db.commit()
+    db.refresh(db_channel)
+    return db_channel
 
 
 def calc_subscribers(db: Session):

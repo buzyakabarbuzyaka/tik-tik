@@ -18,7 +18,7 @@ color_formatter = ColoredFormatter(
         'CRITICAL': 'bold_red',
     })
 
-MAIN_DIR = join(dirname(__file__), '../..')
+MAIN_DIR = join(dirname(__file__), '..')
 LOG_DIR = join(MAIN_DIR, 'log')
 # /app/logs
 makedirs(LOG_DIR, exist_ok=True)
