@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Text
+from sqlalchemy import Column, Integer, String
 
 from orm.database import Base, engine
 
@@ -7,7 +7,7 @@ class Channels(Base):
     __tablename__ = "channels"
 
     id = Column(Integer, primary_key=True)
-    channel_name = Column(Integer, index=True, nullable=False)
+    channel_name = Column(String, index=True, nullable=False)
     boobs = Column(Integer, nullable=False)
     subscribers = Column(Integer, nullable=False)
 

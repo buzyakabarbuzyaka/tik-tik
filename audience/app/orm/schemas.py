@@ -10,7 +10,7 @@ class ChannelBase(BaseModel):
 
 class Channel(ChannelBase):
     id: int
-    channel_name: int
+    channel_name: str
 
     class Config:
         orm_mode = True
