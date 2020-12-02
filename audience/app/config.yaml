@@ -1,0 +1,14 @@
+main:
+  UPDATE_INTERVAL: 10
+
+database:
+  #POSTGRES_ADDRESS: ti_db
+  POSTGRES_ADDRESS: 0.0.0.0
+  POSTGRES_DB: tik-tik
+  POSTGRES_PORT: 5432
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+
+logger:
+  CONSOLE_LOG_LEVEL: INFO
+  APPEND_LOGS: true
