@@ -1,4 +1,4 @@
-//package db_viewer
+//package api_gateway
 package main
 
 import "fmt"
