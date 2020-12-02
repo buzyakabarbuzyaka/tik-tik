@@ -10,5 +10,5 @@ database:
   POSTGRES_PASSWORD: postgres
 
 logger:
-  CONSOLE_LOG_LEVEL: INFO
+  CONSOLE_LOG_LEVEL: DEBUG
   APPEND_LOGS: true

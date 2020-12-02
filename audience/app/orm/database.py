@@ -28,5 +28,5 @@ Base = declarative_base(metadata=metadata)
 
 if __name__ == '__main__':
     from utils.loggerInitializer import initialize_logger
-    initialize_logger(file_output=False)
+    # initialize_logger(file_output=False)
     log.debug(pg.postgres_db_path)
