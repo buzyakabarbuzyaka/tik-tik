@@ -25,12 +25,6 @@ def read_channels(db: Session = Depends(get_db)):
     return users
 
 
-@app.get("/channels/{channel_name}", response_model=List[schemas.Channel])
-def read_channels(db: Session = Depends(get_db)):
-    users = crud.get_channels(db=db)
-    return users
-
-
 @app.get("/channels/{channel_name}", response_model=schemas.Channel)
 def read_channel(channel_name: str, db: Session = Depends(get_db)):
     db_user = crud.get_channel_by_name(db=db, channel_name=channel_name)
