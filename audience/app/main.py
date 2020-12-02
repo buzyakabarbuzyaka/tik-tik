@@ -20,7 +20,6 @@ def get_db():
 if __name__ == '__main__':
     while True:
         log.info('Start')
-        log.info(f'Hello world!!!')
         calc_subscribers(next(get_db()))
         next_start = datetime.now() + timedelta(seconds=UPDATE_INTERVAL)
         log.info(f'Next start: {next_start}')
