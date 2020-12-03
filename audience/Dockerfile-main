@@ -1,0 +1,13 @@
+FROM python:3.8.5
+
+WORKDIR /app
+
+RUN apt-get update
+
+ADD requirements-main.txt ./
+RUN pip install --upgrade pip
+RUN pip install -r requirements-main.txt
+
+ADD app .
+
+CMD python3 main.py

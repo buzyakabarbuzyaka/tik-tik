@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  ti_db:
+  tik_tik_db:
     image: postgres:13
     restart: always
     volumes:
@@ -13,6 +13,30 @@ services:
     ports:
       - 5432:5432
 #    network_mode: "host"
+    networks:
+      - test
+
+  audience-main:
+    depends_on:
+      - tik_tik_db
+    build:
+      context: ./audience
+      dockerfile: Dockerfile-main
+    volumes:
+      - ./log-main:/app/log
+    networks:
+      - test
+
+  audience-server:
+    depends_on:
+      - tik_tik_db
+    build:
+      context: ./audience
+      dockerfile: Dockerfile-server
+    volumes:
+      - ./log-main:/app/log
+    ports:
+      - "8000:8000"
     networks:
       - test
 
