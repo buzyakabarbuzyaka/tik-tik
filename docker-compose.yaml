@@ -2,19 +2,40 @@ version: '3'
 
 services:
   tik_tik_db:
-    image: postgres:13
+    image: postgres:11.5
     restart: always
     volumes:
       - ./ti_updater/db:/var/app/data
     environment:
+      POSTGRES_DB: keycloak
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
       PGDATA: /var/app/data
     ports:
       - 5432:5432
-#    network_mode: "host"
     networks:
       - test
+
+  keycloak:
+      image: quay.io/keycloak/keycloak:latest
+      environment:
+        DB_VENDOR: POSTGRES
+        DB_ADDR: tik_tik_db
+        DB_DATABASE: keycloak
+        DB_USER: postgres
+        DB_SCHEMA: public
+        DB_PASSWORD: postgres
+        KEYCLOAK_USER: admin
+        KEYCLOAK_PASSWORD: admin
+        # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+        #JDBC_PARAMS: "ssl=true"
+      ports:
+        - 8080:8080
+        - 9990:9990
+      depends_on:
+        - tik_tik_db
+      networks:
+        - test
 
   audience-main:
     depends_on:
@@ -36,7 +57,7 @@ services:
     volumes:
       - ./log-main:/app/log
     ports:
-      - "8000:8000"
+      - 8000:8000
     networks:
       - test
 
