@@ -30,20 +30,13 @@ def calc_subscribers(db: Session):
     db.commit()
 
 
-def make_channel(db: Session, channel: schemas.Channel):
-    data = channel.dict()
-    tmp_channel = db.query(models.Channels).filter_by(id=channel.id).first()
-    if tmp_channel:
-        for key, value in data.items():
-            setattr(tmp_channel, key, value)
-        db.add(tmp_channel)
-        db.commit()
-        pass
-    else:
-        new_channel = models.Channels(**data)
-        db.add_all(new_channel)
-        db.commit()
-        print("New channel")
+def make_channel(db: Session, channel_name: str):
+    new_channel_model = schemas.Channel.parse_obj({'channel_name': channel_name})
+    new_channel = models.Channels(**new_channel_model.dict())
+    db.add(new_channel)
+    db.commit()
+    db.refresh(new_channel)
+    return new_channel
 
 
 if __name__ == '__main__':

@@ -33,12 +33,22 @@ def read_channel(channel_name: str, db: Session = Depends(get_db)):
     return db_user
 
 
-@app.post("/channels/{channel_name}", response_model=schemas.Channel)
+@app.post("/video/{channel_name}", response_model=schemas.Channel)
 def add_channel(channel_name: str, new_boobs: int, db: Session = Depends(get_db)):
     db_user = crud.get_channel_by_name(db=db, channel_name=channel_name)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return crud.add_video(db=db, channel_name=channel_name, new_boobs=new_boobs)
+
+
+@app.post("/new/{channel_name}", response_model=schemas.Channel)
+def new_channel(channel_name: str, db: Session = Depends(get_db)):
+    db_user = crud.get_channel_by_name(db=db, channel_name=channel_name)
+    if db_user is not None:
+        raise HTTPException(status_code=404, detail="User exists")
+    db_user = crud.make_channel(db=db, channel_name=channel_name)
+
+    return db_user
 
 
 if __name__ == '__main__':
